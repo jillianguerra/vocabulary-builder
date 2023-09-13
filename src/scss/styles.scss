@@ -1,0 +1,155 @@
+@import url('https://fonts.googleapis.com/css2?family=Vast+Shadow&family=Work+Sans:wght@500&display=swap');
+
+:root {
+    --white: #FFFFFF;
+    --plum: #DDA0DD;
+    --thistle: #D8BFD8;
+    --pink: #FFC0CB;
+    --dark-pink: #DB7093; 
+    --lavendar-blush: #FFF0F5;
+    --gray: #778899;
+    --black: #000000;
+  }
+
+  *, *:before, *:after {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    font-family: 'Work Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: var(--dark-pink);
+    padding: 2vmin;
+    height: 100vh;
+  }
+
+  code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+      monospace;
+  }
+
+  #root {
+    height: 100%;
+  }
+
+  .align-ctr {
+    text-align: center;
+  }
+
+  .align-rt {
+    text-align: right;
+  }
+
+  .smaller {
+    font-size: smaller;
+  }
+
+  .flex-ctr-ctr {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .flex-col {
+    flex-direction: column;
+  }
+
+  .flex-j-end {
+    justify-content: flex-end;
+  }
+
+  .scroll-y {
+    overflow-y: scroll;
+  }
+
+  .section-heading {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: var(--plum);
+    color: var(--black);
+    border: .3vmin solid var(--pink);
+    border-radius: 1vmin;
+    padding: .6vmin;
+    text-align: center;
+    font-size: 2vmin;
+  }
+
+  .form-container {
+    margin: 3vmin;
+    padding: 3vmin;
+    background-color: var(--white);
+    border: .5vmin solid var(--pink);
+    border-radius: 1vmin;
+  }
+
+  p.error-message {
+    color: var(--lavendar-blush);
+    text-align: center;
+  }
+
+  form {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    gap: 1.25vmin;
+    color: var(--gray);
+  }
+
+  label {
+    font-size: 2vmin;
+    display: flex;
+    align-items: center;
+  }
+
+  input {
+    padding: 1vmin;
+    font-size: 2vmin;
+    border: .2vmin solid var(--pink);
+    border-radius: .5vmin;
+    color: var(--black);
+    background-image: none !important; /* prevent lastpass */
+    outline: none;
+  }
+
+  input:focus {
+    border-color: var(--plum);
+  }
+
+  button, a.button {
+    margin: 1vmin;
+    padding: 1vmin;
+    color: var(--white);
+    background-color: var(--thistle);
+    font-size: 2vmin;
+    font-weight: bold;
+    text-decoration: none;
+    text-align: center;
+    border: .2vmin solid var(--plum);
+    border-radius: .5vmin;
+    outline: none;
+    cursor: pointer;
+  }
+
+  button.btn-sm {
+    font-size: 1.5vmin;
+    padding: .6vmin .8vmin;
+  }
+
+  button.btn-xs {
+    font-size: 1vmin;
+    padding: .4vmin .5vmin;
+  }
+
+  button:disabled, form:invalid button[type="submit"] {
+    cursor: not-allowed;
+    background-color: var(--gray);
+  }
+
+  button[type="submit"] {
+    background-color: var(--thistle);
+    color: var(--white);
+    grid-column: span 2;
+    margin: 1vmin 0 0;
+  }
