@@ -1,7 +1,6 @@
 const express = require('express')
 const app = express()
 const path = require('path')
-const favicon = require('serve-favicon')
 const logger = require('morgan')
 
 app.use(express.json()) // req.body
@@ -10,7 +9,6 @@ app.use((req, res, next) => {
     next()
 })
 app.use(logger('dev'))
-app.use(favicon(path.join(__dirname, 'public', 'img','logo.png')))
 app.use(express.static(path.join(__dirname, 'public')))
 // Check if token and create req.user
 app.use(require('./config/checkToken'));

@@ -1,22 +1,19 @@
 const Vocab = require('../../models/vocab')
-const List = require('../../models/list')
 
-// router.get('/', vocabController.showIndex)
-exports.showIndex = async (req, res, next) => {
+// router.get('/list', vocabController.showCurrent)
+exports.showCurrent = async (req, res) => {
     try {
-        const foundVocab = await Vocab.find({})
-        res.locals.data.vocab = foundVocab
-        next()
+        const vocabs = await Vocab.find({list: req.user.current})
+        res.status(200).json(vocabs)
     } catch (error) {
         res.status(400).send({ message: `Nothin here` })
     }
 }
-// router.get('/current', vocabController.showCurrentVocab)
-exports.showCurrentVocab = async (req, res, next) => {
+// router.get('/list/:id', vocabController.showByList)
+exports.showByList = async (req, res) => {
     try {
-        const foundVocab = await Vocab.find({ user: req.user._id })
-        res.locals.data.vocab = foundVocab
-        next()
+        const vocabs = await Vocab.find({ list: req.params.id })
+        res.status(200).json(vocabs)
     } catch (error) {
         res.status(400).send({ message: `Nothin here` })
     }
@@ -25,14 +22,9 @@ exports.showCurrentVocab = async (req, res, next) => {
 exports.createVocab = async (req, res, next) => {
     try {
         req.body.list = req.user.current
-        const list = await List.findOne({_id: req.user.current})
         const vocab = new Vocab(req.body)
         await vocab.save()
-        list.vocab ? list.vocab.addToSet(vocab) : list.vocab = [vocab]
-        await list.save().populate('vocab')
-        res.locals.data.list = list
-        res.locals.data.vocab = vocab
-        next()
+        res.status(200).json(vocab)
     } catch (error) {
         res.status(400).json({ message: error.message })
     }
@@ -41,8 +33,7 @@ exports.createVocab = async (req, res, next) => {
 exports.updateVocab = async (req, res, next) => {
     try {
         const vocab = await Vocab.findByIdAndUpdate(req.params.id, req.body, { new: true })
-        res.locals.data.vocab = vocab
-        next()
+        res.status(200).json(vocab)
     } catch (error) {
         res.status(400).json({message: error.message})
     }
@@ -51,8 +42,7 @@ exports.updateVocab = async (req, res, next) => {
 exports.deleteVocab = async (req, res, next) => {
     try {
         const vocab = await Vocab.findByIdAndDelete(req.params.id)
-        res.locals.data.vocab = vocab
-        next()
+        res.status(200).json(vocab)
     } catch (error) {
         res.status(400).json({ message: error.message })
     }
@@ -60,8 +50,8 @@ exports.deleteVocab = async (req, res, next) => {
 // router.get('/:id', vocabController.showVocab)
 exports.showVocab = async (req,res) => {
     try {
-        const foundVocab = await Vocab.findOne({ _id: req.params.id })
-        res.json(foundVocab)
+        const vocab = await Vocab.findOne({ _id: req.params.id })
+        res.status(200).json(vocab)
     } catch (error) {
         res.status(400).json({ message: error.message })
     }

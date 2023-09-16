@@ -2,9 +2,8 @@ const { model, Schema } = require('mongoose')
 
 const listSchema = new Schema({
     user: { type: Schema.Types.ObjectId, required: true, ref: 'User' },
-    title: String,
-    current: Boolean,
-    words: [{ type: Schema.Types.ObjectId, ref: 'Vocab' }]
+    title: {type: String, required: true},
+    current: Boolean
 }, {
     timestamps: true
 })
@@ -20,12 +19,6 @@ listSchema.statics.getList = function (userId) {
         // it doesn't exist
         { upsert: true, new: true }
     )
-}
-orderSchema.methods.removeWord = function (wordId) {
-    const list = this.populate('words')
-    const word = list.words.find(word => word._id.equals(wordId))
-    word.deleteOne()
-    return list.save()
 }
 
 const List = model('List', listSchema)
